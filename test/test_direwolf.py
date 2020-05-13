@@ -1,6 +1,7 @@
 from lib.direwolf import Direwolf
 from lib.stark import Stark
 
+
 class TestDirewolf:
     def test_direwolf_has_a_name(self):
         wolf = Direwolf('Nymeria')
@@ -19,14 +20,12 @@ class TestDirewolf:
         assert wolf.size, 'Massive'
         assert wolf.name, 'Ghost'
 
-
     def test_can_have_another_home_or_size(self):
         wolf = Direwolf('Shaggydog', "Winterfell", "Smol Pupper")
 
         assert wolf.name, "Shaggydog"
         assert wolf.home, 'Winterfell'
         assert wolf.size, "Smol Pupper"
-
 
     def test_starks_are_in_winterfell_by_default(self):
         wolf = Direwolf('Summer', 'Winterfell')
@@ -54,7 +53,6 @@ class TestDirewolf:
         assert stark.location, 'Riverlands'
         assert wolf.home, 'Riverlands'
 
-
     def test_can_only_protect_stark_kids_if_home_and_location_match(self):
         wolf = Direwolf('Ghost')
         stark = Stark('John', "King's Landing")
@@ -64,9 +62,7 @@ class TestDirewolf:
         assert wolf.starks_to_protect, []
         assert wolf.home, 'Beyond the Wall'
 
-
     def test_direwolf_can_only_protect_two_starks_at_a_time(self):
-
         summer_wolf = Direwolf('Summer', "Winterfell")
         lady_wolf = Direwolf('Lady', "Winterfell")
         sansa_stark = Stark('Sansa')
@@ -81,12 +77,11 @@ class TestDirewolf:
         lady_wolf.protects(bran_stark)
         lady_wolf.protects(arya_stark)
 
-        assert sansa_stark, summer_wolf.starks_to_protect #was assert_include- does Pytest have something similar?
+        assert sansa_stark, summer_wolf.starks_to_protect  # was assert_include- does Pytest have something similar?
         assert john_stark, summer_wolf.starks_to_protect
         assert rob_stark, lady_wolf.starks_to_protect
         assert bran_stark, lady_wolf.starks_to_protect
         assert not arya_stark, lady_wolf.starks_to_protect
-
 
     def test_starks_start_off_unsafe(self):
         stark = Stark('John', "The Wall")
@@ -103,7 +98,7 @@ class TestDirewolf:
 
         assert arya_stark.safe, True
         assert arya_stark.house_words, 'The North Remembers'
-        assert sansa_stark.house_words,  'Winter is Coming'
+        assert sansa_stark.house_words, 'Winter is Coming'
 
     def test_hunts_white_walkers(self):
         wolf = Direwolf('Nymeria', "Winterfell")
@@ -116,7 +111,7 @@ class TestDirewolf:
 
         wolf.protects(stark)
 
-        wolf.hunts_white_walkers
+        wolf.hunts_white_walkers()
 
     def test_wolves_can_leave_and_stop_protecting_starks(self):
         summer_wolf = Direwolf('Summer', "Winterfell")
@@ -130,7 +125,7 @@ class TestDirewolf:
 
         assert summer_wolf.starks_to_protect, []
         assert lady_wolf.starks_to_protect[0].name, 'Sansa'
-        assert not arya_stark.safe, True
+        assert arya_stark.safe, False
 
     def test_if_stark_not_protected_when_direwolf_leaves_then_that_stark_is_the_return_value(self):
         summer_wolf = Direwolf('Summer', "Winterfell")
@@ -144,8 +139,5 @@ class TestDirewolf:
         summer_wolf.leaves(arya_stark)
 
         expected = lady_wolf.leaves(rickon_stark)
-        #
-        # assert_instance_of
-        # Stark, expected
-        assert expected.name, 'Rickon'
 
+        assert expected.name, 'Rickon'
