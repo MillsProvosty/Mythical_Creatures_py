@@ -23,14 +23,10 @@ class TestHobbit:
 
     def test_grows_older_when_celebrating_birthdays(self):
         hobbit = Hobbit('Merry')
-        assert hobbit.age, 0
-
-        hobbit.celebrate_birthday
-        hobbit.celebrate_birthday
-        hobbit.celebrate_birthday
-        hobbit.celebrate_birthday
-        hobbit.celebrate_birthday
-
+        count = 0
+        while count < 5:
+            hobbit.celebrate_birthday()
+            count += 1
         assert hobbit.age, 5
 
     def test_is_considered_a_child_at_32(self):
@@ -38,21 +34,19 @@ class TestHobbit:
 
         count = 0
         while count < 32:
-            hobbit.celebrate_birthday
+            hobbit.celebrate_birthday()
             count += 1
 
-        assert not hobbit.adult, True
-
-
+        assert not hobbit.is_adult(), True
 
     def test_comes_of_age_at_33(self):
         hobbit = Hobbit('Lotho')
         count = 0
-        while count < 33:
-            hobbit.celebrate_birthday
+        while count < 35:
+            hobbit.celebrate_birthday()
             count += 1
 
-        assert hobbit.adult, True
+        assert hobbit.is_adult(), True
 
 
     def test_is_old_at_age_of_101(self):
@@ -60,17 +54,17 @@ class TestHobbit:
 
         count = 0
         while count < 101:
-            hobbit.celebrate_birthday
+            hobbit.celebrate_birthday()
             count += 1
 
-        assert hobbit.old, True
+        assert hobbit.is_old(), True
 
     def test_hobbit_has_the_ring_if_its_name_is_frodo(self):
         frodo = Hobbit("Frodo", "Brave")
         samwise = Hobbit("Samwise", "Supportive")
 
-        assert frodo.has_ring, True
-        assert not samwise.has_ring, True
+        assert frodo.has_ring(), True
+        assert not samwise.has_ring(), True
 
 
     def test_hobbits_are_short(self):
