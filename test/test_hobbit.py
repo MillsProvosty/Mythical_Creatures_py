@@ -1,12 +1,11 @@
 from lib.hobbit import Hobbit
 
-class TestHobbit:
 
+class TestHobbit:
 
     def test_it_has_a_name(self):
         hobbit = Hobbit("Bilbo")
-        assert hobbit.name,"Bilbo"
-
+        assert hobbit.name, "Bilbo"
 
     def test_it_is_named_something_else(self):
         hobbit = Hobbit("Pippin")
@@ -15,7 +14,6 @@ class TestHobbit:
     def test_disposition_is_unadventurous(self):
         hobbit = Hobbit("Samwise")
         assert hobbit.disposition, "homebody"
-
 
     def test_can_have_a_different_disposition(self):
         hobbit = Hobbit("Frodo", "adventurous")
@@ -48,7 +46,6 @@ class TestHobbit:
 
         assert hobbit.is_adult(), True
 
-
     def test_is_old_at_age_of_101(self):
         hobbit = Hobbit("Lobelia", "nosey")
 
@@ -66,9 +63,7 @@ class TestHobbit:
         assert frodo.has_ring(), True
         assert not samwise.has_ring(), True
 
-
     def test_hobbits_are_short(self):
         hobbit = Hobbit("Old Toby")
 
         assert hobbit.is_short, True
-
