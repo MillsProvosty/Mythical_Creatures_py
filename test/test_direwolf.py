@@ -38,7 +38,6 @@ class TestDirewolf:
         wolf = Direwolf('Nymeria')
         stark = Stark('Arya')
 
-        assert wolf.starks_to_protect, []
         assert stark.name, 'Arya'
         assert stark.location, 'Winterfell'
         assert wolf.home, 'Beyond the Wall'
@@ -49,7 +48,7 @@ class TestDirewolf:
 
         wolf.protects(stark)
 
-        assert wolf.starks_to_protect.first.name, 'Arya'
+        assert wolf.starks_to_protect[0], 'Arya'
         assert stark.location, 'Riverlands'
         assert wolf.home, 'Riverlands'
 
@@ -77,11 +76,11 @@ class TestDirewolf:
         lady_wolf.protects(bran_stark)
         lady_wolf.protects(arya_stark)
 
-        assert sansa_stark, summer_wolf.starks_to_protect  # was assert_include- does Pytest have something similar?
-        assert john_stark, summer_wolf.starks_to_protect
-        assert rob_stark, lady_wolf.starks_to_protect
-        assert bran_stark, lady_wolf.starks_to_protect
-        assert not arya_stark, lady_wolf.starks_to_protect
+        summer_num = len(summer_wolf.starks_to_protect)
+        lady_num = len(lady_wolf.starks_to_protect)
+        assert summer_num, 2
+        assert lady_num, 2
+
 
     def test_starks_start_off_unsafe(self):
         stark = Stark('John', "The Wall")
@@ -124,8 +123,8 @@ class TestDirewolf:
         summer_wolf.leaves(arya_stark)
 
         assert summer_wolf.starks_to_protect, []
-        assert lady_wolf.starks_to_protect[0].name, 'Sansa'
-        assert arya_stark.safe, False
+        assert lady_wolf.starks_to_protect, [sansa_stark]
+        assert not arya_stark.safe, True
 
     def test_if_stark_not_protected_when_direwolf_leaves_then_that_stark_is_the_return_value(self):
         summer_wolf = Direwolf('Summer', "Winterfell")
@@ -136,8 +135,9 @@ class TestDirewolf:
 
         summer_wolf.protects(arya_stark)
         lady_wolf.protects(sansa_stark)
+        lady_wolf.protects(rickon_stark)
         summer_wolf.leaves(arya_stark)
+        lady_wolf.leaves(rickon_stark)
 
-        expected = lady_wolf.leaves(rickon_stark)
-
-        assert expected.name, 'Rickon'
+        assert not arya_stark.safe, True
+        assert summer_wolf.leaves(arya_stark), "Arya"

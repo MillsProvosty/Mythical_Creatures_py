@@ -1,9 +1,8 @@
-from lib.direwolf import Direwolf
 
 class Stark:
 
-    def __init__(self, name, location, house_words):
+    def __init__(self, name, location = "Winterfell", house_words = "Winter is Coming"):
         self.name = name
         self.location = location
         self.house_words = house_words
-        self.safe = True
+        self.safe = False
